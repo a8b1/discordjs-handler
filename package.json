@@ -4,7 +4,10 @@
   "description": "a bot handler",
   "main": "./dist/structures/bot.js",
   "scripts": {
-    "test": "ts-node ./src/structure/bot.js"
+    "start": "node ./dist/structure/bot.js",
+    "dev": "nodemon ./src/structure/bot.ts",
+    "test": "ts-node ./src/structure/bot.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
