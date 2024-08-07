@@ -1,3 +1,4 @@
+import { ChannelType } from "discord.js";
 import { PrefixCommands } from "../../../types/Commands";
 import { Apple } from "../../utils/Apple";
 const defaultPrefix = ','
@@ -5,8 +6,9 @@ export default (client: Apple) => {
     client.on('messageCreate', async (message) => {
         /**
          * If message is by a bot, it'll end up in an infinite loop
+         * !message.guildId disables the command if it's occured in dms
          */
-        if(message.author.bot) return;
+        if(message.author.bot || !message.guildId) return;
         /**
          * Command arguments (aka message splits)
          */
@@ -24,10 +26,10 @@ export default (client: Apple) => {
          * Optionally you can create a message here if there is no such command in the list
          */
         if(!command) {
-            return message.channel.send({
-                content: `\`${defaultPrefix + commandInput}\` is not a command`
-            })
-            return
+            // return message.channel.send({
+            //     content: `\`${defaultPrefix + commandInput}\` is not a command`
+            // })
+            return;
         };
         /**
          * Run the command 
