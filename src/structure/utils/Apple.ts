@@ -1,34 +1,39 @@
-import { ActivityType, Client, Partials } from "discord.js";
+import { ActivityType, Client, Collection, Partials } from "discord.js";
 import 'colors';
 import dotenv from 'dotenv';
+import { PrefixCommands } from "../../types/Commands";
+import path from "path";
+import { readdirSync } from "fs";
 dotenv.config();
 
 export class Apple extends Client {
-    // collections
+    collections : {
+        prefix: Collection<string, PrefixCommands>
+    }
     // applicationCommandsArray: any[]
 
     constructor() {
         super({
             intents: [
                 // Only use what you want
-                // "AutoModerationConfiguration",
-                // "AutoModerationExecution",
-                // "DirectMessagePolls",
-                // "DirectMessageReactions",
-                // "DirectMessageTyping",
-                // "DirectMessages",
-                // "GuildBans",
+                "AutoModerationConfiguration",
+                "AutoModerationExecution",
+                "DirectMessagePolls",
+                "DirectMessageReactions",
+                "DirectMessageTyping",
+                "DirectMessages",
+                "GuildBans",
                 "GuildEmojisAndStickers",
-                // "GuildIntegrations",
-                // "GuildInvites",
+                "GuildIntegrations",
+                "GuildInvites",
                 "GuildMembers",
-                // "GuildMessagePolls",
-                // "GuildMessageReactions",
+                "GuildMessagePolls",
+                "GuildMessageReactions",
                 "GuildMessageTyping",
                 "GuildMessages",
-                // "GuildModeration",
-                // "GuildPresences",
-                // "GuildScheduledEvents",
+                "GuildModeration",
+                "GuildPresences",
+                "GuildScheduledEvents",
                 "GuildVoiceStates",
                 "Guilds",
                 "MessageContent"
@@ -54,9 +59,18 @@ export class Apple extends Client {
         });
 
         // this collection and arrray
+        this.collections = {
+            prefix: new Collection(),
+        }
 
     }
     public start = async (): Promise<void> => {
+        const handlersDir =path.join(__dirname, '../../structure/handlers');
+        for(const handler of readdirSync(handlersDir).filter(f => f.endsWith('.ts') || f.endsWith('.js'))) {
+            const event = await import(path.join(handlersDir, handler));
+            await event.default(this);
+        }
         await this.login(process.env.DISCORD_TOKEN);
+        console.log('Bot online');
     }
 }
