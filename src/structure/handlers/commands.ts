@@ -16,6 +16,9 @@ const handleCommand = async (client: Apple) => {
                 // makking sure it contains name and run exports
                 if(moduleFile) {
                     client.collections.prefix.set(moduleFile.name, moduleFile);
+                    if(moduleFile.aliases && Array.isArray(moduleFile.aliases)) {
+                        moduleFile.aliases.forEach(alias => client.collections.prefixAliases.set(alias, moduleFile.name));
+                    }
                     console.log('Loaded: '.gray + `${category}/${file}`.green);
                 } else {
                     console.log('Command Exprort Error: '.red + `${category}/${file}`.green.dim);

@@ -9,6 +9,7 @@ dotenv.config();
 export class Apple extends Client {
     collections : {
         prefix: Collection<string, PrefixCommands>
+        prefixAliases: Collection<string, string>
     }
     // applicationCommandsArray: any[]
 
@@ -61,6 +62,7 @@ export class Apple extends Client {
         // this collection and arrray
         this.collections = {
             prefix: new Collection(),
+            prefixAliases: new Collection(),
         }
 
     }

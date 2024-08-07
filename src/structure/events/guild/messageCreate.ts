@@ -18,7 +18,7 @@ export default (client: Apple) => {
         /**
          * Finds the command in the prefix command collection
          */
-        const command = client.collections.prefix.get(commandInput) as PrefixCommands;
+        const command = client.collections.prefix.get(commandInput) || client.collections.prefix.get(client.collections.prefixAliases.get(commandInput) as string) as PrefixCommands;
         /**
          * No command? eat five star and do nothing
          */
