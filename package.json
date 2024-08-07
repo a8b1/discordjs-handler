@@ -1,0 +1,24 @@
+{
+  "name": "bothandler",
+  "version": "1.0.0",
+  "description": "a bot handler",
+  "main": "./dist/structures/bot.js",
+  "scripts": {
+    "test": "ts-node ./src/structure/bot.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/discodingpotato/discordjs-handler.git"
+  },
+  "keywords": [
+    "handler",
+    "djs-handler",
+    "discord-js"
+  ],
+  "author": "discodingpotato",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/discodingpotato/discordjs-handler/issues"
+  },
+  "homepage": "https://github.com/discodingpotato/discordjs-handler#readme"
+}
