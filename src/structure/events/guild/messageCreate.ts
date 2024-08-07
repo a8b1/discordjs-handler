@@ -21,8 +21,14 @@ export default (client: Apple) => {
         const command = client.collections.prefix.get(commandInput) || client.collections.prefix.get(client.collections.prefixAliases.get(commandInput) as string) as PrefixCommands;
         /**
          * No command? eat five star and do nothing
+         * Optionally you can create a message here if there is no such command in the list
          */
-        if(!command) return;
+        if(!command) {
+            return message.channel.send({
+                content: `\`${defaultPrefix + commandInput}\` is not a command`
+            })
+            return
+        };
         /**
          * Run the command 
          */
