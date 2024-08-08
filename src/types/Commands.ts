@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionData, ApplicationCommandType, ChannelType, ChatInputApplicationCommandData, ChatInputCommandInteraction, ContextMenuCommandBuilder, ContextMenuCommandType, InteractionResponse, Message, PermissionResolvable, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, UserContextMenuCommandInteraction } from "discord.js";
+import { ApplicationCommandOptionData, ApplicationCommandType, ChannelType, ChatInputApplicationCommandData, ChatInputCommandInteraction, ContextMenuCommandBuilder, ContextMenuCommandType, InteractionResponse, Message, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, UserContextMenuCommandInteraction } from "discord.js";
 import { Apple } from "../structure/utils/Apple";
 
 export interface PrefixCommands {
@@ -62,6 +62,63 @@ export class SlashCommand {
         this.dm_permission = op.dm_permission;
         this.default_member_permissions = op.default_member_permissions;
         this.options = op.options;
+        this.run = op.run;
+    }
+}
+
+/**
+ * An Interface for User Context Menu
+ */
+export interface UserContextMenu {
+    name: string;
+    type?: ContextMenuCommandType;
+    dm_permission?: boolean;
+    default_member_permissions?: PermissionResolvable;
+    run: (client: Apple, interaction: UserContextMenuCommandInteraction) => Promise<InteractionResponse | void>;
+}
+/**
+ * Class for usercontext menu commands
+ */
+export class UserContextMenuCommand {
+    /**
+     * The Name of the command (aka option)
+     */
+    readonly name: string;
+    /**
+     * The type of the context menu
+     * 
+     * @remarks
+     * You don't have to include while creating the command because it's already declared in the class side
+     */
+    readonly type?: ContextMenuCommandType;
+    /**
+     * Indicates whether the command is availale in direct messages with the application
+     * 
+     * @remarks
+     * By default, commands are visible. Applicable only in global commands
+     */
+    readonly dm_permission?: boolean;
+    /**
+     * The set of permissions represented as a bit set for the command
+     * 
+     * @remarks
+     * Use PermissionFlagsBits from discord.js 
+     * eg: PermissionFlagsBits.SendMessages
+     */
+    readonly default_member_permissions?: PermissionResolvable;
+    /**
+     * The required run command whoch
+     * @param client - The base client (Extended as Apple)
+     * @param interaction - The ContextMenu Interaction, specified for User Context Menu
+     * @returns nothing basically
+     */
+    run: (client: Apple, interaction: UserContextMenuCommandInteraction) => Promise<InteractionResponse | void>;
+
+    constructor(op: UserContextMenu) {
+        this.name = op.name;
+        this.type = ApplicationCommandType.User;
+        this.dm_permission = op.dm_permission;
+        this.default_member_permissions = op.default_member_permissions;
         this.run = op.run;
     }
 }
