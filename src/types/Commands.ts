@@ -8,18 +8,45 @@ export interface PrefixCommands {
     cooldown?: number;
     category?: string;
     su?: boolean;
-    permissions?: PermissionResolvable[];
+    permissions?: PermissionResolvable |  PermissionResolvable[];
     run: (client: Apple, message: Message, args: string[], prefix: string) => Promise<Message | void>;
 };
 
-export class PrefixCommand implements PrefixCommands {
-    name: string;
-    description?: string | undefined;
-    aliases?: string[] | undefined;
-    cooldown?: number | undefined;
-    category?: string | undefined;
-    su?: boolean | undefined;
-    permissions?: PermissionResolvable[];
+export class PrefixCommand {
+    /**
+     * The command name (will use as <prefix><name>)
+     */
+    readonly name: string;
+    /**
+     * The comand description, not required but if you're creating a help menu you can use this
+     */
+    readonly description?: string | undefined;
+    /**
+     * Allias? yep
+     */
+    readonly aliases?: string[] | undefined;
+    /**
+     * The message cooldown, prevent spamming?
+     */
+    readonly cooldown?: number | undefined;
+    /**
+     * 
+     */
+    readonly category?: string | undefined;
+    /**
+     * Whether the command is only for super user or not?
+     */
+    readonly su?: boolean | undefined;
+    /**
+     * The permissions required for the command (both user and both require the same)
+     * 
+     * @remarks
+     * Can have both single and multiple permissions..
+     */
+    readonly permissions?: PermissionResolvable |  PermissionResolvable[];
+    /**
+     * The execution function, where you get the response
+     */
     run: (client: Apple, message: Message, args: string[], prefix: string) => Promise<Message | void>;
 
     constructor(options: PrefixCommands) {
@@ -33,6 +60,7 @@ export class PrefixCommand implements PrefixCommands {
         this.run = options.run;
     }
 }
+
 export interface SlashCommands {
     name: string;
     default_member_permissions?: PermissionResolvable;
