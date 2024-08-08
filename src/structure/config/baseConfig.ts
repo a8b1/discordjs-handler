@@ -1,7 +1,9 @@
 interface BotConfig {
-    su: string[]
+    prefix: string;
+    su: string[];
 }
 const botConfig: BotConfig = {
+    prefix: ',',
     /**
      * Super users, those who can access every commands on the planet
      */
