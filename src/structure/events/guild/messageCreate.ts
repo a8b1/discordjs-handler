@@ -1,6 +1,7 @@
 import { ChannelType, GuildMember, PermissionResolvable } from "discord.js";
 import { PrefixCommands } from "../../../types/Commands";
 import { Apple } from "../../utils/Apple";
+import baseConfig from "../../config/baseConfig";
 const defaultPrefix = ','
 export default (client: Apple) => {
     client.on('messageCreate', async (message) => {
@@ -67,6 +68,15 @@ export default (client: Apple) => {
                     }]
                 })
             }
+        }
+
+        if(command.su && !baseConfig.su.includes(message.author.id)) {
+            return message.channel.send({
+                embeds: [{
+                    description: '❌ You\'re not allowed to execute this command',
+                    color: 0xFF0000
+                }]
+            })
         }
         /**
          * Run the command 
