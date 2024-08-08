@@ -2,7 +2,7 @@ import { ChannelType, GuildMember, PermissionResolvable } from "discord.js";
 import { PrefixCommands } from "../../../types/Commands";
 import { Apple } from "../../utils/Apple";
 import baseConfig from "../../config/baseConfig";
-const defaultPrefix = ','
+import prefixConfiduration from "../../../modals/prefixConfiduration";
 export default (client: Apple) => {
     client.on('messageCreate', async (message) => {
         /**
@@ -11,9 +11,20 @@ export default (client: Apple) => {
          */ 
         if (message.author.bot || !message.guildId || !message.guild?.members.me?.permissions.has('SendMessages')) return;
         /**
+         * Find the guild prefix
+         */
+        let guildConfiguration = await prefixConfiduration.findOne({
+            guildId: message.guild.id
+        });
+        /**
+         * Create one if not available
+         */
+        if(!guildConfiguration) guildConfiguration = await prefixConfiduration.create({ guildId: message.guild.id });
+        let prefix = guildConfiguration.prefix;
+        /**
          * Command arguments (aka message splits)
          */
-        const args = message.content.slice(defaultPrefix.length).trim().split(/ +/);
+        const args = message.content.slice(prefix.length).trim().split(/ +/);
         /**
          * the first thing will be the command
          */
@@ -81,7 +92,7 @@ export default (client: Apple) => {
         /**
          * Run the command 
          */
-        await command.run(client, message, args, defaultPrefix);
+        await command.run(client, message, args, prefix);
     })
 }
 
