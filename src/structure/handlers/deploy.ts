@@ -1,12 +1,12 @@
 import { REST, Routes } from "discord.js";
 import { Apple } from "../utils/Apple";
 
-const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
+const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN as string);
 
 const deployCommands = async (client: Apple) => {
     try {
         await rest.put(
-            Routes.applicationCommands(process.env.CLIENT_ID), {
+            Routes.applicationCommands(process.env.CLIENT_ID as string), {
                 body: client.applicationCommandsArray
             }
         );
@@ -14,4 +14,6 @@ const deployCommands = async (client: Apple) => {
         console.error(error);
         // console.log(`• No Application commands`.brightRed)
     }
-}
+};
+
+export default deployCommands;
