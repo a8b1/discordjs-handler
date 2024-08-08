@@ -39,19 +39,45 @@ export interface SlashCommands {
     description: string;
     dm_permission?: boolean;
     nsfw?: boolean;
-    type?: ApplicationCommandType.ChatInput;
     options?: ApplicationCommandOptionData[];
     run: (client: Apple, interaction: ChatInputCommandInteraction) => Promise<InteractionResponse | void>;
 }
 
 export class SlashCommand {
-    name: string;
-    description: string;
-    type?: ApplicationCommandType.ChatInput;
-    nsfw?: boolean;
-    dm_permission?: boolean;
-    default_member_permissions?: PermissionResolvable;
-    options?: ApplicationCommandOptionData[];
+    /**
+     * Command name
+     */
+    readonly name: string;
+    /**
+     * The big bang description for the command
+     */
+    readonly description: string;
+    /**
+     * Command type, Not in exports, declared in constructor
+     */
+    readonly type: ApplicationCommandType.ChatInput;
+    /**
+     * Whether the command is NSFW
+     */
+    readonly nsfw?: boolean;
+    /**
+     * Indicates whether the command is available in direct messages with the application.
+     *
+     * @remarks
+     * By default, commands are visible. Only applicable in global commands
+     */
+    readonly dm_permission?: boolean;
+    /**
+     * The set of permissions represented as a bit set for the command.
+     */
+    readonly default_member_permissions?: PermissionResolvable;
+    /**
+     * The options of this command.
+     */
+    readonly options?: ApplicationCommandOptionData[];
+    /**
+     * The command proprty function, here you define wot to do :walk:
+     */
     run: (client: Apple, interaction: ChatInputCommandInteraction) => Promise<InteractionResponse | void>;
 
     constructor(op: SlashCommands) {
