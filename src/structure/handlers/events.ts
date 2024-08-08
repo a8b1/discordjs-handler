@@ -10,7 +10,7 @@ const handleEvets = async (client: Apple) => {
         await Promise.all(files.map(async (file) => {
             const filePath = path.join(handlersDir, dir, file);
             try {
-                (await import(filePath)).default(client);
+                await (await import(filePath)).default(client);
                 console.log('Loaded: '.gray + `${dir}/${file}`.green);
             } catch (error) {
                 console.error(`Error importing file: ${file}`, error);

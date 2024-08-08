@@ -1,17 +1,18 @@
 import { ActivityType, Client, Collection, Partials } from "discord.js";
 import 'colors';
 import dotenv from 'dotenv';
-import { PrefixCommands } from "../../types/Commands";
+import { PrefixCommands, SlashCommands } from "../../types/Commands";
 import path from "path";
 import { readdirSync } from "fs";
 dotenv.config();
 
 export class Apple extends Client {
     collections : {
-        prefix: Collection<string, PrefixCommands>
-        prefixAliases: Collection<string, string>
+        prefix: Collection<string, PrefixCommands>;
+        prefixAliases: Collection<string, string>;
+        interactionCommands: Collection<string, SlashCommands>;
     }
-    // applicationCommandsArray: any[]
+    applicationCommandsArray: any[]
 
     constructor() {
         super({
@@ -63,7 +64,9 @@ export class Apple extends Client {
         this.collections = {
             prefix: new Collection(),
             prefixAliases: new Collection(),
+            interactionCommands: new Collection()
         }
+        this.applicationCommandsArray = [];
 
     }
     public start = async (): Promise<void> => {
