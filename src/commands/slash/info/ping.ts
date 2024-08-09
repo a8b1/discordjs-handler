@@ -1,14 +1,14 @@
-import { SlashCommand } from "../../../types/Commands";
+import { SlashCommandBuilder } from "discord.js";
+import { SlashCommands } from "../../../types/Commands";
 
-const pingCommand = new SlashCommand({
-    name: 'ping',
-    description: 'Shows how fast can this app respond',
+const pingCommand: SlashCommands = {
+    data: new SlashCommandBuilder(),
     run: async (client, interaction) => {
         return interaction.reply({
             content: 'Pong!',
             ephemeral: true
         });
     },
-});
+};
 
 export default pingCommand;

@@ -1,7 +1,10 @@
-import { UserContextMenuCommand } from "../../../types/Commands";
+import { ApplicationCommandType, ContextMenuCommandBuilder } from "discord.js";
+import { UserContextMenu } from "../../../types/Commands";
 
-const GetUser = new UserContextMenuCommand({
-    name: 'Get User',
+const GetUser: UserContextMenu = {
+    data: new ContextMenuCommandBuilder()
+        .setName('Who')
+        .setType(ApplicationCommandType.User),
     run: async (client, interaction) => {
         const targetUser = interaction.targetMember;
         return interaction.reply({
@@ -9,6 +12,6 @@ const GetUser = new UserContextMenuCommand({
             ephemeral: true
         })
     },
-});
+};
 
 export default GetUser;

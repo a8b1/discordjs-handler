@@ -2,7 +2,7 @@ import { ChannelType, GuildMember, PermissionResolvable } from "discord.js";
 import { PrefixCommands } from "../../../types/Commands";
 import { Apple } from "../../utils/Apple";
 import baseConfig from "../../config/baseConfig";
-import prefixConfiduration from "../../../modals/prefixConfiduration";
+import prefixConfiduration from "../../../models/prefixConfiduration";
 export default (client: Apple) => {
     client.on('messageCreate', async (message) => {
         /**

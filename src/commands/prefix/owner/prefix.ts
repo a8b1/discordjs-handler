@@ -1,6 +1,6 @@
 import { EmbedBuilder } from "discord.js";
 import { PrefixCommand } from "../../../types/Commands";
-import prefixConfiduration from "../../../modals/prefixConfiduration";
+import prefixConfiduration from "../../../models/prefixConfiduration";
 
 const prefixChange = new PrefixCommand({
     name: 'prefix',
