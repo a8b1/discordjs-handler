@@ -5,14 +5,14 @@ import { MessageContextMenu, PrefixCommand, SlashCommands, UserContextMenu } fro
 
 
 const handleCommand = async (client: Apple) => {
-    const handlersDir = path.join(__dirname, '../../commands');
-    const typesDir = readdirSync(handlersDir);
+    const commandsDir = path.join(__dirname, '../../commands');
+    const typesDir = readdirSync(commandsDir);
     for (const types of typesDir) {
-        const categories = readdirSync(path.join(handlersDir, types));
+        const categories = readdirSync(path.join(commandsDir, types));
         for (const category of categories) {
-            const files = readdirSync(path.join(handlersDir, types, category)).filter(f => f.endsWith('.ts') || f.endsWith('.js'));
+            const files = readdirSync(path.join(commandsDir, types, category)).filter(f => f.endsWith('.ts') || f.endsWith('.js'));
             await Promise.all(files.map(async (file) => {
-                const filePath = path.join(handlersDir, types, category, file);
+                const filePath = path.join(commandsDir, types, category, file);
                 const moduleFile = (await import(filePath)).default as PrefixCommand | UserContextMenu | SlashCommands | MessageContextMenu; 
                 // makking sure it contains name and run exports
                 if (moduleFile) {
