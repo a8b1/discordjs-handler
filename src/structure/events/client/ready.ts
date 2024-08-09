@@ -5,7 +5,7 @@ import { Apple } from "../../utils/Apple";
 export default (client:  Apple) => {
     client.on('ready', async () => {
         /**
-         * Bot Details
+         * Bot Details on ready
          */
         console.log(
             `Bot User: `.green + `${client.user?.tag}`.blue + `\n` +
