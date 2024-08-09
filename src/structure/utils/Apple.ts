@@ -1,9 +1,10 @@
-import { ActivityType, Client, Collection, Partials } from "discord.js";
+import { ActivityType, AnySelectMenuInteraction, Client, Collection, Partials } from "discord.js";
 import 'colors';
 import dotenv from 'dotenv';
 import { MessageContextMenu, PrefixCommands, SlashCommands, UserContextMenu } from "../../types/Commands";
 import path from "path";
 import { readdirSync } from "fs";
+import { AutoCompleteInteractionInterface, ButtonComponentInterface, ModalComponent, SelectMenuComponentInterface } from "../../types/Components";
 dotenv.config();
 
 export class Apple extends Client {
@@ -11,6 +12,12 @@ export class Apple extends Client {
         prefix: Collection<string, PrefixCommands>;
         prefixAliases: Collection<string, string>;
         interactionCommands: Collection<string, SlashCommands | UserContextMenu | MessageContextMenu>;
+        components: {
+            autoCompleteInteraction: Collection<string, AutoCompleteInteractionInterface>;
+            buttons: Collection<string, ButtonComponentInterface>;
+            selectMenus: Collection<string, SelectMenuComponentInterface<AnySelectMenuInteraction>>;
+            modals: Collection<string, ModalComponent>;
+        }
     }
     applicationCommandsArray: any[]
 
@@ -64,7 +71,13 @@ export class Apple extends Client {
         this.collections = {
             prefix: new Collection(),
             prefixAliases: new Collection(),
-            interactionCommands: new Collection()
+            interactionCommands: new Collection(),
+            components: {
+                autoCompleteInteraction: new Collection(),
+                buttons: new Collection(),
+                selectMenus: new Collection(),
+                modals: new Collection(),
+            }
         }
         this.applicationCommandsArray = [];
 
