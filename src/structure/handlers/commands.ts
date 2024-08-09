@@ -13,7 +13,7 @@ const handleCommand = async (client: Apple) => {
             const files = readdirSync(path.join(handlersDir, types, category)).filter(f => f.endsWith('.ts') || f.endsWith('.js'));
             await Promise.all(files.map(async (file) => {
                 const filePath = path.join(handlersDir, types, category, file);
-                const moduleFile = (await import(filePath)).default as PrefixCommand | UserContextMenu | SlashCommands | MessageContextMenu;
+                const moduleFile = (await import(filePath)).default as PrefixCommand | UserContextMenu | SlashCommands | MessageContextMenu; 
                 // makking sure it contains name and run exports
                 if (moduleFile) {
                     if (moduleFile instanceof PrefixCommand) {
