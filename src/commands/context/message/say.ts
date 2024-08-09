@@ -8,4 +8,6 @@ const SayCommand = new MessageContextMenuCommand({
             ephemeral: true
         })
     },
-})
+});
+
+export default SayCommand

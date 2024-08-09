@@ -1,7 +1,8 @@
 import path from "path";
 import { Apple } from "../utils/Apple";
 import { readdirSync } from "fs";
-import { PrefixCommand, SlashCommand } from "../../types/Commands";
+import { MessageContextMenuCommand, PrefixCommand, SlashCommand, UserContextMenuCommand } from "../../types/Commands";
+
 
 const handleCommand = async (client: Apple) => {
     const handlersDir = path.join(__dirname, '../../commands');
@@ -12,7 +13,7 @@ const handleCommand = async (client: Apple) => {
             const files = readdirSync(path.join(handlersDir, types, category)).filter(f => f.endsWith('.ts') || f.endsWith('.js'));
             await Promise.all(files.map(async (file) => {
                 const filePath = path.join(handlersDir, types, category, file);
-                const moduleFile = (await import(filePath)).default as PrefixCommand | SlashCommand;
+                const moduleFile = (await import(filePath)).default as PrefixCommand | SlashCommand | UserContextMenuCommand | MessageContextMenuCommand;
                 // makking sure it contains name and run exports
                 if (moduleFile) {
                     if (moduleFile instanceof PrefixCommand) {
@@ -21,13 +22,13 @@ const handleCommand = async (client: Apple) => {
                             moduleFile.aliases.forEach(alias => client.collections.prefixAliases.set(alias, moduleFile.name));
                         }
                         moduleFile.category = category;
-                        console.log('Loaded: '.gray + `${category}/${file}`.green);
                     } else if(moduleFile) {
                         client.collections.interactionCommands.set(moduleFile.name, moduleFile);
                         client.applicationCommandsArray.push(moduleFile);
                     }
+                    console.log(`${moduleFile instanceof PrefixCommand ? 'Prefix' : moduleFile instanceof SlashCommand ? 'Interaction' : moduleFile instanceof UserContextMenuCommand ? 'UserContext' : "MessageContext"} : `.gray + `${category}/${file}`.green);
                 } else {
-                    console.log('Command Exprort Error: '.red + `${category}/${file}`.green.dim);
+                    console.log('Exprort Error: '.red + `${category}/${file}`.green.dim);
                 }
             }))
         }

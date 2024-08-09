@@ -59,7 +59,7 @@ export default (client: Apple) => {
             /**
              * The required permissions which is added in the bot command options
             */
-            const requiredPermissions = command.permissions;
+            const requiredPermissions = Array.isArray(command.permissions) ? command.permissions : [command.permissions];
             const userPermissionsResult = checkPermissions(message.member as GuildMember, requiredPermissions);
 
             if (!userPermissionsResult.hasPermission) {

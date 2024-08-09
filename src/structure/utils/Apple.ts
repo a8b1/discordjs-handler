@@ -1,7 +1,7 @@
 import { ActivityType, Client, Collection, Partials } from "discord.js";
 import 'colors';
 import dotenv from 'dotenv';
-import { PrefixCommands, SlashCommands } from "../../types/Commands";
+import { MessageContextMenu, PrefixCommands, SlashCommands, UserContextMenu } from "../../types/Commands";
 import path from "path";
 import { readdirSync } from "fs";
 dotenv.config();
@@ -10,7 +10,7 @@ export class Apple extends Client {
     collections : {
         prefix: Collection<string, PrefixCommands>;
         prefixAliases: Collection<string, string>;
-        interactionCommands: Collection<string, SlashCommands>;
+        interactionCommands: Collection<string, SlashCommands | UserContextMenu | MessageContextMenu>;
     }
     applicationCommandsArray: any[]
 

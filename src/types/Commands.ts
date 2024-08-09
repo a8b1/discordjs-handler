@@ -32,7 +32,7 @@ export class PrefixCommand {
     /**
      * 
      */
-    readonly category?: string | undefined;
+    category?: string | undefined;
     /**
      * Whether the command is only for super user or not?
      */

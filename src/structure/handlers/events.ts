@@ -11,7 +11,7 @@ const handleEvets = async (client: Apple) => {
             const filePath = path.join(handlersDir, dir, file);
             try {
                 await (await import(filePath)).default(client);
-                console.log('Loaded: '.gray + `${dir}/${file}`.green);
+                console.log('Event: '.gray + `${dir}/${file}`.green);
             } catch (error) {
                 console.error(`Error importing file: ${file}`, error);
             }
