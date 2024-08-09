@@ -76,6 +76,5 @@ export class Apple extends Client {
             await event.default(this);
         }
         await this.login(process.env.DISCORD_TOKEN);
-        console.log('Bot online');
     }
 }

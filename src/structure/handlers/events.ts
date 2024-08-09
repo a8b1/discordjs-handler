@@ -13,7 +13,8 @@ const handleEvets = async (client: Apple) => {
                 await (await import(filePath)).default(client);
                 console.log('Event: '.gray + `${dir}/${file}`.green);
             } catch (error) {
-                console.error(`Error importing file: ${file}`, error);
+                    console.log('Event Error: '.red + `${dir}/${file}`.green.dim);
+                    // console.error(`Error importing file: ${file}`, error);
             }
         }));
     }

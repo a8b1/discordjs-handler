@@ -1,6 +1,7 @@
 interface BotConfig {
     prefix: string;
     su: string[];
+    debug: true
 }
 const botConfig: BotConfig = {
     prefix: ',',
@@ -9,7 +10,8 @@ const botConfig: BotConfig = {
      */
     su: [
         '760018214259261490'
-    ]
+    ],
+    debug: true
 }
 
 export default botConfig;
