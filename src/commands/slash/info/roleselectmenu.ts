@@ -1,6 +1,6 @@
 import { SlashCommandBuilder } from "discord.js";
 import { SlashCommands } from "../../../types/Commands";
-import { ActionRowBuilder, RoleSelectMenuBuilder } from "@discordjs/builders";
+import { ActionRowBuilder, RoleSelectMenuBuilder } from "discord.js";
 
 const roleSelectCommand : SlashCommands = {
     data: new SlashCommandBuilder()

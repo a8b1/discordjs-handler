@@ -33,7 +33,8 @@ const modalCommand : SlashCommands = {
 
 		// Add inputs to the modal
 		modal.addComponents(firstActionRow, secondActionRow);
-        return interaction.showModal(modal);
+		await interaction.showModal(modal);
+		return;
     }
 };
 

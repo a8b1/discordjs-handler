@@ -1,4 +1,4 @@
-import { EmbedBuilder } from "discord.js";
+import { EmbedBuilder, TextChannel } from "discord.js";
 import { PrefixCommand } from "../../../types/Commands";
 import prefixConfiduration from "../../../models/prefixConfiduration";
 
@@ -12,7 +12,7 @@ const prefixChange = new PrefixCommand({
 
         if(args[0] == 'set' && args[1]) {
             if(args[1].length > 5) {
-                return message.channel.send({
+                return (message.channel as TextChannel).send({
                     embeds: [new EmbedBuilder(wrongInput.toJSON()).setDescription(`❌ **Limit exceeded**\nNew prefix length must be 5 or less\n> **Usage**: \`${prefix}prefix set [new-prefix]\``)]
                 })
             }
@@ -20,7 +20,7 @@ const prefixChange = new PrefixCommand({
                 guildId: message.guild?.id,
                 prefix: args[1]
             });
-            return message.channel.send({
+            return (message.channel as TextChannel).send({
                 embeds: [
                     new EmbedBuilder()
                         .setDescription(`🫡 Prefix changed from \`${prefix}\` to \`${args[1]}\``)
@@ -28,7 +28,7 @@ const prefixChange = new PrefixCommand({
             })
         }
 
-        return message.channel.send({
+        return (message.channel as TextChannel).send({
             embeds: [wrongInput]
         })
     },
